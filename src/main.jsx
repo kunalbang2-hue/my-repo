@@ -1,0 +1,38 @@
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { Provider } from 'react-redux'
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'
+import { store } from './redux/store'
+import App from './App'
+import BatchPage from './components/BatchPage'
+import CompanyDetails from './components/CompanyDetails'
+import CompanyPYQ from './components/CompanyPYQ'
+import CompanyCall from './components/CompanyCall'
+import Subscribe from "./components/Subscribe";
+import MySubscriptions from './components/MySubsciptions'
+import './index.css'
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import SubscribeConsultation from './components/SubscribeConsultation'
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <GoogleOAuthProvider clientId= {import.meta.env.VITE_GOOGLE_CLIENT_ID} >
+      <Provider store={store}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/batch/:batch" element={<BatchPage />} />
+            <Route path="/company/:id" element={<CompanyDetails />} />
+            <Route path="/company/:id/pyq" element={<CompanyPYQ />} />
+            <Route path="/company/:id/call" element={<CompanyCall />} />
+            <Route path="/subscribe/:id/:type" element={<Subscribe />} />
+            <Route path="/subscriptions" element={<MySubscriptions />} /> 
+            <Route path="/subscribe-consultation" element={<SubscribeConsultation />} /> 
+
+          </Routes>
+        </Router>
+      </Provider>
+    </GoogleOAuthProvider>
+  </React.StrictMode>
+)
